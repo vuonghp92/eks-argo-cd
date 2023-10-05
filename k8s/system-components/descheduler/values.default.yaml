@@ -1,0 +1,16 @@
+deschedulerPolicy:
+  strategies:
+    RemoveDuplicates:
+      enabled: false
+    LowNodeUtilization:
+      enabled: true
+      params:
+        nodeResourceUtilizationThresholds:
+          thresholds:
+            "cpu" : 60
+            "memory": 50
+            "pods": 10
+          targetThresholds:
+            "cpu" : 80
+            "memory": 60
+            "pods": 15

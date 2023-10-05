@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-api
+      tier: api
+  template:
+    metadata:
+      labels:
+        app: backend-api
+        tier: api
+    spec:
+      serviceAccountName: backend-api
+      containers:
+        - name: backend-api
+          image: backend-api-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8011
+          envFrom:
+            - configMapRef:
+                name: backend-api-envs-config
+            - secretRef:
+                name: backend-api-envs-secrets
+          resources:
+            limits:
+              cpu: 200m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 150Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8011
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            tcpSocket:
+              port: 8011
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1

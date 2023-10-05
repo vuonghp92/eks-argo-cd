@@ -1,0 +1,28 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+repositories:
+# Official argo chart repo
+- name: "argo"
+  url: "https://argoproj.github.io/argo-helm"
+
+releases:
+- name: "argocd-notifications"
+  namespace: "argo-cd"
+  labels:
+    chart: "argocd-notifications"
+    repo: "argo"
+    component: "argocd-notifications"
+    namespace: "argo-cd"
+    vendor: "argo"
+  chart: "argo/argocd-notifications"
+  version: "1.5.2"
+  wait: true
+  waitForJobs: true
+  disableValidationOnInstall: true
+  timeout: 360
+  values:
+    - ./values.default.yaml
+    - ./values.{{ .Environment.Name }}.yaml

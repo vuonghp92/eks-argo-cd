@@ -1,0 +1,6 @@
+resources:
+  - service-account.yaml
+  - deployment.yaml
+  - service.yaml
+  - migration-job.yaml
+  - dynamodb-table.yaml

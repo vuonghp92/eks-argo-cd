@@ -1,0 +1,7 @@
+serviceAccount:
+  name: external-secrets
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::*:role/*"
+env:
+  LOG_LEVEL: error
+  DISABLE_POLLING: "on"

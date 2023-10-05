@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: database-migration
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  ttlSecondsAfterFinished: 30
+  template:
+    spec:
+      serviceAccountName: backend-api
+      containers:
+        - name: database-migration
+          image: database-migration
+          args:
+            - schema
+            - apply
+            - -r
+            - ./migrate
+          envFrom:
+            - configMapRef:
+                name: backend-api-envs-config
+            - secretRef:
+                name: backend-api-envs-secrets
+      restartPolicy: OnFailure

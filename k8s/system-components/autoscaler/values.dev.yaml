@@ -1,0 +1,6 @@
+autoDiscovery:
+  clusterName: "dev-eks-cluster"
+rbac:
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: ""

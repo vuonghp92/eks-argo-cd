@@ -1,0 +1,39 @@
+resources:
+  - ../../base
+  - secret.yaml
+
+namespace: demo
+
+commonLabels:
+  environment: dev
+
+configMapGenerator:
+  - name: backend-api-envs-config
+    literals:
+      - Environment=development
+      - POSTGRES_DB=homestead
+      - POSTGRES_USER=demo_admin
+      - POSTGRES_HOST=
+
+generatorOptions:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+
+patchesJson6902:
+  - patch: |
+      - op: replace
+        path: /metadata/annotations/eks.amazonaws.com~1role-arn
+        value: arn:aws:iam::<ACCOUNT_ID>:role/backend-api-srglc0a-eks-role
+    target:
+      kind: ServiceAccount
+      name: backend-api
+      version: v1
+
+images:
+  - name: backend-api-img
+    newName: api-${env}
+    newTag: latest
+  - name: database-migration
+    newName: migration
+    newTag: latest

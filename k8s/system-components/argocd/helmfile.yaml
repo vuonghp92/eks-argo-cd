@@ -1,0 +1,40 @@
+environments:
+  dev:
+    values:
+      - target_group_arn: ""
+      - alb_security_group_id: ""
+  stg:
+  prd:
+
+repositories:
+  # Official argo chart repo
+  - name: "argo"
+    url: "https://argoproj.github.io/argo-helm"
+
+releases:
+  - name: "argo-cd"
+    namespace: "argo-cd"
+    labels:
+      chart: "argo-cd"
+      repo: "argo"
+      component: "argo-cd"
+      namespace: "argo-cd"
+      vendor: "argo"
+    chart: "argo/argo-cd"
+    version: "3.26.9"
+    wait: true
+    waitForJobs: true
+    disableValidationOnInstall: true
+    hooks:
+      - events:
+          - "prepare"
+        showlogs: true
+        command: "./scripts/init.sh"
+        args:
+          - "argo-cd"
+          - "{{ .Environment.Values.target_group_arn }}"
+          - "{{ .Environment.Values.alb_security_group_id }}"
+    timeout: 360
+    values:
+      - ./values.default.yaml
+      - ./values.{{ .Environment.Name }}.yaml

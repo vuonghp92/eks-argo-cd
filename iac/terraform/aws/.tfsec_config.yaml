@@ -1,0 +1,11 @@
+exclude:
+  - AWS005
+  - AWS008
+  - AWS009
+  - AWS018
+  - AWS023
+  - AWS089
+  - AWS093
+  - AWS095
+  - AWS097
+  - AWS099

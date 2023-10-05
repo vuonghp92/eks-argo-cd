@@ -1,0 +1,23 @@
+autoDiscovery:
+  clusterName: "eks-cluster"
+awsRegion: "us-west-2"
+cloudProvider: "aws"
+extraArgs:
+  skip-nodes-with-local-storage: false
+  skip-nodes-with-system-pods: false
+  balance-similar-node-groups: true
+updateStrategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  type: RollingUpdate
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+    name: autoscaler
+    annotations:
+      eks.amazonaws.com/role-arn: "arn:aws:iam::111122223333:role/s3-reader"
+  pspEnabled: false
+serviceMonitor:
+  enabled: false

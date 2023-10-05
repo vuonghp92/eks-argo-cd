@@ -1,0 +1,23 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+repositories:
+# Official aws-load-balancer-controller chart repo
+- name: "eks"
+  url: "https://aws.github.io/eks-charts"
+
+releases:
+- name: "alb-controller"
+  namespace: "kube-system"
+  chart: "eks/aws-load-balancer-controller"
+  version: "1.2.7"
+  wait: true
+  waitForJobs: true
+  disableValidationOnInstall: true
+  timeout: 180
+  atomic: true
+  values:
+    - ./values.default.yaml
+    - ./values.{{ .Environment.Name }}.yaml

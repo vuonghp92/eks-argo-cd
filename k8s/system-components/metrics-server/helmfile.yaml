@@ -1,0 +1,25 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+repositories:
+- name: "metrics-server"
+  url: "https://kubernetes-sigs.github.io/metrics-server"
+
+releases:
+- name: "metrics-server"
+  namespace: "kube-system"
+  labels:
+    chart: "metrics-server"
+    repo: "metrics-server"
+    component: "hpa"
+    namespace: "kube-system"
+    vendor: "kubernetes"
+  chart: "metrics-server/metrics-server"
+  version: "3.5.0"
+  wait: false
+  timeout: 360
+  values:
+    - ./values.default.yaml
+    - ./values.{{ .Environment.Name }}.yaml

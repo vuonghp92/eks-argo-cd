@@ -1,0 +1,16 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+helmDefaults:
+  createNamespace: true
+helmfiles:
+  - ./autoscaler/helmfile.yaml
+  - ./aws-load-balancer-controller/helmfile.yaml
+  - ./descheduler/helmfile.yaml
+  - ./external-dns/helmfile.yaml
+  - ./external-secrets/helmfile.yaml
+  - ./metrics-server/helmfile.yaml
+  - ./argocd/helmfile.yaml
+  - ./argocd-notifications/helmfile.yaml

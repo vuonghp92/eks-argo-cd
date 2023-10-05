@@ -1,0 +1,27 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+repositories:
+# Official descheduler chart repo
+- name: "descheduler"
+  url: "https://kubernetes-sigs.github.io/descheduler/"
+
+releases:
+- name: "descheduler"
+  namespace: "descheduler"
+  labels:
+    chart: "descheduler"
+    repo: "descheduler"
+    component: "descheduler"
+    namespace: "kube-system"
+    vendor: "kubernetes"
+  chart: "descheduler/descheduler"
+  version: "0.22.1"
+  wait: false
+  timeout: 180
+  atomic: true
+  values:
+    - ./values.default.yaml
+    - ./values.{{ .Environment.Name }}.yaml

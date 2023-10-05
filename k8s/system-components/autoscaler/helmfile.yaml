@@ -1,0 +1,28 @@
+environments:
+  dev:
+  stg:
+  prd:
+
+repositories:
+# Official autoscaler chart repo
+- name: "autoscaler"
+  url: "https://kubernetes.github.io/autoscaler"
+
+releases:
+- name: "cluster-autoscaler"
+  namespace: "kube-system"
+  labels:
+    chart: "cluster-autoscaler"
+    repo: "autoscaler"
+    component: "autoscaler"
+    namespace: "kube-system"
+    vendor: "kubernetes"
+  chart: "autoscaler/cluster-autoscaler"
+  version: "9.10.7"
+  wait: true
+  waitForJobs: true
+  disableValidationOnInstall: true
+  timeout: 360
+  values:
+    - ./values.default.yaml
+    - ./values.{{ .Environment.Name }}.yaml

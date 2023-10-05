@@ -1,0 +1,8 @@
+server:
+  extraArgs:
+    - --insecure
+  service:
+    type: "NodePort"
+  clusterAdminAccess:
+    enabled: true
+  logLevel: debug

@@ -1,0 +1,7 @@
+nameOverride: "alb-controller"
+clusterName: "eks-cluster"
+serviceAccount:
+  create: true
+  name: "alb-controller"
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::111122223333:role/s3-reader"

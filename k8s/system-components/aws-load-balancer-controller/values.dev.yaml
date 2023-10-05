@@ -1,0 +1,4 @@
+clusterName: "dev-eks-cluster"
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::011986164237:role/dev-utm-lqhchuk-alb-controller-eks-role"

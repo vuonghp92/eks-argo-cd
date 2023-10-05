@@ -1,0 +1,4 @@
+clusterName: "stg-eks-cluster"
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::111122223333:role/stg-s3-reader"

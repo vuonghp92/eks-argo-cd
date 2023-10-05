@@ -1,0 +1,19 @@
+resources:
+  - ../../base
+
+namespace: argo-cd
+
+commonLabels:
+  environment: dev
+
+patchesJson6902:
+  - patch: |
+      - op: replace
+        path: /spec/source/path
+        value: k8s/applications/backend/overlays/dev
+    target:
+      kind: Application
+      name: backend-api
+      group: argoproj.io
+      version: v1alpha1
+  

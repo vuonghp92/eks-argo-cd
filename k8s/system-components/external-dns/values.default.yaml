@@ -1,0 +1,28 @@
+sources:
+- service
+- ingress
+- crd
+provider: "aws"
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+crd:
+  create: true
+resources:
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+rbac:
+  create: true
+  apiVersion: v1
+  pspEnabled: false
+serviceAccount:
+  name: external-dns
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::111122223333:role/s3-reader"
+aws:
+  evaluateTargetHealth: false
+

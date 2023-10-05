@@ -1,0 +1,18 @@
+server:
+  rbacConfig:
+    policy.default: role:readonly
+    policy.csv: |
+      p, role:qa,  applications, *, */*, allow
+      p, role:dev, applications, *, */*, allow
+      p, role:dev, projects, *, *, allow
+      p, role:dev, repositories, *, *, allow
+      g, devuser, role:dev
+      g, qauser, role:qa
+
+  config:
+    users.anonymous.enabled: "false"
+    admin.enabled: "true"
+    accounts.qauser: apiKey, login
+    accounts.devuser: apiKey, login
+    url: https://argo-cd.example.com
+
