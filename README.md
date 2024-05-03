@@ -16,7 +16,7 @@
   * [applications](./docs/k8s/applications.md)
 
 ### iac
-* terraform
+* terraforms
 
 ### k8s
 * The k8s manifest
